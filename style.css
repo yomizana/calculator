@@ -21,9 +21,19 @@ button {
 }
 
 .display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+    font-size: 48px;
+    color: white;
     flex: 1;
-    background-color: black;
+    background-color: darkslategray;
     grid-area: display;
+}
+
+.display span {
+    margin-right: 20px;
 }
 
 .calculator-keys {
