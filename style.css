@@ -9,5 +9,26 @@ body {
 .calculator-container {
     background-color: grey;
     width: 500px;
-    height: 500px;
+    height: 600px;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-size: 20px;
+}
+
+.display {
+    flex: 1;
+    background-color: black;
+    grid-area: display;
+}
+
+.calculator-keys {
+    flex: 4;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
