@@ -1,15 +1,22 @@
-const display = document.querySelector('.display');
-const span = display.querySelector('span');
-const buttons = document.querySelectorAll('button');
+const span = document.querySelector('span');
+const numberButtons = document.querySelectorAll('.number');
+const operatorButtons = document.querySelectorAll('.operator');
+const clearButton = document.querySelector('.clear');
 
-buttons.forEach(button => {
+numberButtons.forEach(button => {
     button.addEventListener('click', () => {
-
-        if (button.className === 'number') {
-            span.textContent += button.textContent;
-        }
-
+        span.textContent += button.value;
     });
+});
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        span.textContent += button.value;
+    });
+});
+
+clearButton.addEventListener('click', () => {
+    span.textContent = "";
 });
 
 function add(a, b) {
