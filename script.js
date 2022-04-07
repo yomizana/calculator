@@ -1,3 +1,17 @@
+const display = document.querySelector('.display');
+const span = display.querySelector('span');
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+
+        if (button.className === 'number') {
+            span.textContent += button.textContent;
+        }
+
+    });
+});
+
 function add(a, b) {
     return a + b;
 }
