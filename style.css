@@ -24,7 +24,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    
+
     font-size: 48px;
     color: white;
     flex: 1;
@@ -41,4 +41,15 @@ button {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+}
+
+.add {
+    grid-column-start: 4;
+    grid-row-start: 4;
+    grid-row-end: 6;
+}
+
+.clear {
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
