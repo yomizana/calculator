@@ -4,72 +4,33 @@ const operatorButtons = document.querySelectorAll('.operator');
 const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
-let firstNumberFilled = false;
-
-let continousOperation = false;
-
 let displayData = '';
-
-let operation = {
-    firstNumber: 0,
-    operator: '',
-    secondNumber: 0,
-    result: 0
-}
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
+
         span.textContent += button.value;
         displayData += button.value;
+
     });
 });
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (continousOperation) {
-            operation.secondNumber = parseInt(displayData);
-            operate(operation);
-            span.textContent = operation.result;
-
-            operation.firstNumber = operation.result;
-
-            span.textContent += button.value;
-            displayData = button.value;
-            operation.operator = displayData;
-
-            displayData = ''
-
-            return;
-        }
-
-        if (!firstNumberFilled) {
-            operation.firstNumber = parseInt(displayData);
-            displayData = '';
-        }
 
         span.textContent += button.value;
-        displayData = button.value;
+        displayData += button.value;
 
-        operation.operator = displayData;
-
-        displayData = '';
-
-        firstNumberFilled = true;
-        continousOperation = true;
     });
 });
 
 equalsButton.addEventListener('click', () => {
-    operation.secondNumber =  parseInt(displayData);
+    let numbers = parseNumbers(displayData);
+    let operator = parseOperator(displayData);
 
-    displayData = '';
+    let result = operate(numbers[0], operator, numbers[1]);
 
-    operate(operation);
-    span.textContent = operation.result;
-
-    operation.firstNumber = operation.result;
-    firstNumberFilled = true;
-    continousOperation = false;
+    span.textContent = result;
 });
 
 clearButton.addEventListener('click', () => {
@@ -77,6 +38,22 @@ clearButton.addEventListener('click', () => {
 
     resetOperation();
 });
+
+function parseNumbers(displayData) {
+    const operatorsRegEx = /(\+|\-|\*|\/)/;
+
+    let numbers = displayData.replace(operatorsRegEx, ',').split(',');
+    numbers = numbers.map(number => Number(number));
+
+    return numbers;
+}
+
+function parseOperator(displayData) {
+    const numbersRegEx = /[0-9]/g;
+    const operator = displayData.replace(numbersRegEx, '');
+
+    return operator;
+}
 
 function add(a, b) {
     return a + b;
@@ -94,11 +71,11 @@ function divide (a, b) {
     return a / b;
 }
 
-function operate (obj) {
-    if (obj.operator === '+') obj.result = add(obj.firstNumber, obj.secondNumber);
-    if (obj.operator === '-') obj.result = subtract(obj.firstNumber, obj.secondNumber);
-    if (obj.operator === '*') obj.result = multiply(obj.firstNumber, obj.secondNumber);
-    if (obj.operator === '/') obj.result = divide(obj.firstNumber, obj.secondNumber);
+function operate (firstNumber, operator, secondNumber) {
+    if (operator === '+') return add(firstNumber, secondNumber);
+    if (operator === '-') return subtract(firstNumber, secondNumber);
+    if (operator === '*') return multiply(firstNumber, secondNumber);
+    if (operator === '/') return divide(firstNumber, secondNumber);
 }
 
 function resetOperation() {
