@@ -64,5 +64,5 @@ function operate (obj) {
     if (obj.operator === '+') obj.result = add(obj.firstNumber, obj.secondNumber);
     if (obj.operator === '-') obj.result = subtract(obj.firstNumber, obj.secondNumber);
     if (obj.operator === '*') obj.result = multiply(obj.firstNumber, obj.secondNumber);
-    if (obj.operator === '/') obj.result = divide(obj.firstNumber, obj.secondNumbers);
+    if (obj.operator === '/') obj.result = divide(obj.firstNumber, obj.secondNumber);
 }
