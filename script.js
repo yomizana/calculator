@@ -30,6 +30,7 @@ equalsButton.addEventListener('click', () => {
 
     let result = operate(numbers[0], operator, numbers[1]);
 
+    displayData = result;
     span.textContent = result;
 });
 
@@ -79,8 +80,6 @@ function operate (firstNumber, operator, secondNumber) {
 }
 
 function resetOperation() {
-    operation.firstNumber = 0;
-    operation.operator = '';
-    operation.secondNumber = 0;
-    values = [];
+    displayData = '';
+    span.textContent = '';
 }
