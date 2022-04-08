@@ -5,6 +5,7 @@ const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
 let displayData = '';
+let operatorUsed = false;
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -17,28 +18,42 @@ numberButtons.forEach(button => {
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (operatorUsed) {
+            let result = getResult();
+            showResult(result);
+        }
 
         span.textContent += button.value;
         displayData += button.value;
+
+        operatorUsed = true;
 
     });
 });
 
 equalsButton.addEventListener('click', () => {
-    let numbers = parseNumbers(displayData);
-    let operator = parseOperator(displayData);
-
-    let result = operate(numbers[0], operator, numbers[1]);
-
-    displayData = result;
-    span.textContent = result;
+    let result = getResult();
+    showResult(result);
+    operatorUsed = false;
 });
 
 clearButton.addEventListener('click', () => {
-    span.textContent = "";
 
     resetOperation();
+    
 });
+
+function getResult() {
+    const numbers = parseNumbers(displayData);
+    const operator = parseOperator(displayData);
+
+    return operate(numbers[0], operator, numbers[1]);
+}
+
+function showResult(result) {
+    displayData = result;
+    span.textContent = result;
+}
 
 function parseNumbers(displayData) {
     const operatorsRegEx = /(\+|\-|\*|\/)/;
@@ -82,4 +97,5 @@ function operate (firstNumber, operator, secondNumber) {
 function resetOperation() {
     displayData = '';
     span.textContent = '';
+    operatorUsed = false;
 }
