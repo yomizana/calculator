@@ -1,6 +1,7 @@
 const span = document.querySelector('span');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
+const decimalButton = document.querySelectorAll('.decimal');
 const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
@@ -31,6 +32,13 @@ operatorButtons.forEach(button => {
     });
 });
 
+decimalButton.forEach(button => {
+    button.addEventListener('click', () => {
+        displayData += button.value;
+        span.textContent += button.value;
+    });
+});
+
 equalsButton.addEventListener('click', () => {
     let result = getResult();
     showResult(result);
@@ -47,7 +55,15 @@ function getResult() {
     const numbers = parseNumbers(displayData);
     const operator = parseOperator(displayData);
 
-    return operate(numbers[0], operator, numbers[1]);
+    let result = operate(numbers[0], operator, numbers[1]);
+
+    let resultLength = result.toString().length;
+
+    if (resultLength > 15) {
+        result = Math.round((result + Number.EPSILON) * (10**15)) / (10**15);
+    }
+
+    return result;
 }
 
 function showResult(result) {
@@ -65,7 +81,7 @@ function parseNumbers(displayData) {
 }
 
 function parseOperator(displayData) {
-    const numbersRegEx = /[0-9]/g;
+    const numbersRegEx = /[0-9\.]/g;
     const operator = displayData.replace(numbersRegEx, '');
 
     return operator;
