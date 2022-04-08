@@ -24,8 +24,7 @@ operatorButtons.forEach(button => {
             showResult(result);
         }
 
-        span.textContent += button.value;
-        displayData += button.value;
+        setOperator(button);
 
         operatorUsed = true;
 
@@ -51,6 +50,27 @@ clearButton.addEventListener('click', () => {
     
 });
 
+function setOperator(button) {
+    switch (button.value) {
+        case '+':
+            displayData += 'add';
+            span.textContent += '+'
+            break;
+        case '-':
+            displayData += 'subtract';
+            span.textContent += '-'
+            break;
+        case '*':
+            displayData += 'multiply';
+            span.textContent += 'x'
+            break;
+        case '/':
+            displayData += 'divide';
+            span.textContent += '÷';
+            break;
+    }
+}
+
 function getResult() {
     const numbers = parseNumbers(displayData);
     const operator = parseOperator(displayData);
@@ -72,7 +92,7 @@ function showResult(result) {
 }
 
 function parseNumbers(displayData) {
-    const operatorsRegEx = /(\+|\-|\*|\/)/;
+    const operatorsRegEx = /(add|subtract|multiply|divide)/;
 
     let numbers = displayData.replace(operatorsRegEx, ',').split(',');
     numbers = numbers.map(number => Number(number));
@@ -81,7 +101,7 @@ function parseNumbers(displayData) {
 }
 
 function parseOperator(displayData) {
-    const numbersRegEx = /[0-9\.]/g;
+    const numbersRegEx = /(-?[0-9\.]+)/g;
     const operator = displayData.replace(numbersRegEx, '');
 
     return operator;
@@ -104,10 +124,10 @@ function divide (a, b) {
 }
 
 function operate (firstNumber, operator, secondNumber) {
-    if (operator === '+') return add(firstNumber, secondNumber);
-    if (operator === '-') return subtract(firstNumber, secondNumber);
-    if (operator === '*') return multiply(firstNumber, secondNumber);
-    if (operator === '/') return divide(firstNumber, secondNumber);
+    if (operator === 'add') return add(firstNumber, secondNumber);
+    if (operator === 'subtract') return subtract(firstNumber, secondNumber);
+    if (operator === 'multiply') return multiply(firstNumber, secondNumber);
+    if (operator === 'divide') return divide(firstNumber, secondNumber);
 }
 
 function resetOperation() {
