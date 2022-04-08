@@ -4,6 +4,12 @@ const operatorButtons = document.querySelectorAll('.operator');
 const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
+let firstNumberFilled = false;
+
+let continousOperation = false;
+
+let displayData = '';
+
 let operation = {
     firstNumber: 0,
     operator: '',
@@ -11,31 +17,59 @@ let operation = {
     result: 0
 }
 
-let displayScreenData = '';
-
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         span.textContent += button.value;
-        displayScreenData = parseInt(span.textContent);
+        displayData += button.value;
     });
 });
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        operation.firstNumber = displayScreenData;
-        displayScreenData = '';
+        if (continousOperation) {
+            operation.secondNumber = parseInt(displayData);
+            operate(operation);
+            span.textContent = operation.result;
+
+            operation.firstNumber = operation.result;
+
+            span.textContent += button.value;
+            displayData = button.value;
+            operation.operator = displayData;
+
+            displayData = ''
+
+            return;
+        }
+
+        if (!firstNumberFilled) {
+            operation.firstNumber = parseInt(displayData);
+            displayData = '';
+        }
 
         span.textContent += button.value;
-        operation.operator = button.value;
+        displayData = button.value;
+
+        operation.operator = displayData;
+
+        displayData = '';
+
+        firstNumberFilled = true;
+        continousOperation = true;
     });
 });
 
 equalsButton.addEventListener('click', () => {
-    operation.secondNumber = displayScreenData;
-    displayScreenData = '';
+    operation.secondNumber =  parseInt(displayData);
+
+    displayData = '';
 
     operate(operation);
     span.textContent = operation.result;
+
+    operation.firstNumber = operation.result;
+    firstNumberFilled = true;
+    continousOperation = false;
 });
 
 clearButton.addEventListener('click', () => {
@@ -65,4 +99,11 @@ function operate (obj) {
     if (obj.operator === '-') obj.result = subtract(obj.firstNumber, obj.secondNumber);
     if (obj.operator === '*') obj.result = multiply(obj.firstNumber, obj.secondNumber);
     if (obj.operator === '/') obj.result = divide(obj.firstNumber, obj.secondNumber);
+}
+
+function resetOperation() {
+    operation.firstNumber = 0;
+    operation.operator = '';
+    operation.secondNumber = 0;
+    values = [];
 }
