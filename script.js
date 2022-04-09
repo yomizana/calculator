@@ -6,7 +6,7 @@ const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
 let displayData = '';
-let operatorUsed = false;
+let operatorActive = false;
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -19,15 +19,13 @@ numberButtons.forEach(button => {
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (operatorUsed) {
+        if (operatorActive) {
             let result = getResult();
             showResult(result);
         }
 
         setOperator(button);
-
-        operatorUsed = true;
-
+        operatorActive = true;
     });
 });
 
@@ -39,7 +37,7 @@ decimalButton.addEventListener('click', () => {
 equalsButton.addEventListener('click', () => {
     let result = getResult();
     showResult(result);
-    operatorUsed = false;
+    operatorActive = false;
 });
 
 clearButton.addEventListener('click', () => {
@@ -90,17 +88,32 @@ function showResult(result) {
 }
 
 function parseNumbers(displayData) {
-    const operatorsRegEx = /(add|subtract|multiply|divide)/;
+    const regEx = /(add|subtract|multiply|divide)+/;
 
-    let numbers = displayData.replace(operatorsRegEx, ',').split(',');
+    let numbers = displayData.replace(regEx, ',').split(',');
+
+    if (!isInputValid(numbers)) {
+        return;
+    }
+
     numbers = numbers.map(number => Number(number));
 
     return numbers;
 }
 
+function isInputValid(numbers) {
+    if (numbers[0] === '' || numbers[1] === '') {
+        span.textContent = 'SYNTAX ERROR';
+        return false;
+    } 
+    return true;
+}
+
 function parseOperator(displayData) {
-    const numbersRegEx = /(-?[0-9\.]+)/g;
-    const operator = displayData.replace(numbersRegEx, '');
+    const regEx = /(add|subtract|multiply|divide)/;
+
+    const match = displayData.match(regEx);
+    const operator = match[0];
 
     return operator;
 }
@@ -131,5 +144,5 @@ function operate (firstNumber, operator, secondNumber) {
 function resetOperation() {
     displayData = '';
     span.textContent = '';
-    operatorUsed = false;
+    operatorActive = false;
 }
