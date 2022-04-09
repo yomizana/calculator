@@ -1,7 +1,7 @@
 const span = document.querySelector('span');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
-const decimalButton = document.querySelectorAll('.decimal');
+const decimalButton = document.querySelector('.decimal');
 const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
@@ -31,11 +31,9 @@ operatorButtons.forEach(button => {
     });
 });
 
-decimalButton.forEach(button => {
-    button.addEventListener('click', () => {
-        displayData += button.value;
-        span.textContent += button.value;
-    });
+decimalButton.addEventListener('click', () => {
+    displayData += decimalButton.value;
+    span.textContent += decimalButton.value;
 });
 
 equalsButton.addEventListener('click', () => {
