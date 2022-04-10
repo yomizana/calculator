@@ -4,9 +4,15 @@ const operatorButtons = document.querySelectorAll('.operator');
 const decimalButton = document.querySelector('.decimal');
 const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
+const backButton = document.querySelector('.back');
 
 let displayData = '';
 let operatorActive = false;
+
+backButton.addEventListener('click', () => {
+    span.textContent = span.textContent.slice(0, -1);
+    displayData = displayData.slice(0, -1);
+});
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -83,8 +89,8 @@ function getResult() {
 }
 
 function showResult(result) {
-    displayData = result;
-    span.textContent = result;
+    displayData = result.toString();
+    span.textContent = result.toString();
 }
 
 function parseNumbers(displayData) {
