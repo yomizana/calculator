@@ -22,8 +22,8 @@ button {
 
 .display {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
 
     font-size: 48px;
     color: white;
@@ -32,8 +32,14 @@ button {
     grid-area: display;
 }
 
-.display span {
-    margin-right: 20px;
+.display .operation {
+    align-self: flex-start;
+    margin-left: 10px;
+}
+
+.display .result {
+    align-self: flex-end;
+    margin-right: 10px;
 }
 
 .calculator-keys {
