@@ -68,6 +68,7 @@ function setOperator(value) {
 
     if (operator && secondNumber) {
         evaluateOperation();
+        
         operationArea.textContent = result;
 
         operator = value;
@@ -114,6 +115,7 @@ function evaluateOperation() {
     secondNumber = Number(secondNumber);
 
     if (operator === '/' && secondNumber === 0) {
+        resetOperation();
         return alert('You can\'t divide by zero.');
     }
 
