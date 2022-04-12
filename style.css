@@ -41,7 +41,7 @@ button {
 .display .operation {
     overflow-wrap: break-word;
     min-height: 40px;
-    inline-size: 450px;
+    inline-size: 440px;
     align-self: flex-start;
     margin: 10px;
     color: #E6DBD0;
@@ -53,7 +53,7 @@ button {
     align-self: flex-end;
     overflow-wrap: break-word;
     text-align: right;
-    inline-size: 450px;
+    inline-size: 440px;
     margin-right: 10px;
     margin-bottom: 10px;
 
